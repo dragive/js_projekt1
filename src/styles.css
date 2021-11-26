@@ -10,9 +10,9 @@ td{
 #table-main{
     width: 100%;
 }
-#table-main tr:hover {
+/* #table-main tr:hover {
     background-color: #ddd;
-}
+} */
 #table-main th {
     padding: 3px;
     padding-top: 12px;
@@ -31,4 +31,14 @@ td{
 .table{
     border-collapse: collapse;
     
+}
+.table-footer-right{
+
+    text-align: right;
+    font-weight: bold;
+}
+.table-footer-left{
+
+    text-align: left;
+    font-weight: bold;
 }
