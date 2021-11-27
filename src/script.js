@@ -10,6 +10,16 @@ var storage = [{
     name:"nazwa",
     price:123,
     amount:10
+},{
+    lp:20,
+    name:"nazwa",
+    price:123,
+    amount:10
+},{
+    lp:20,
+    name:"nazwa",
+    price:123,
+    amount:10
 }]
 
 function update(){
@@ -112,7 +122,7 @@ function getControllsDiv(){
 }
 
 function addTableCellAsLast(tableCellElement){
-    let pointer = document.getElementById("table-footer")
+    let pointer = document.getElementById("table-row-add")
        
     pointer.parentElement.insertBefore(tableCellElement,pointer)
 
@@ -132,6 +142,57 @@ function reenumerateStorage(){
     }
 }
 
+function addButtonInit(){
+    let button = document.getElementById("text-submit")
+    button.onclick =addButtonOnCLickListener 
+}
+
+function addButtonOnCLickListener(){
+    let newObject = {}
+    newObject.name = document.getElementById("text-add-name").value
+    newObject.price = document.getElementById("text-add-price").value
+    newObject.amount = document.getElementById("text-add-amount").value
+
+    console.log(newObject)
+
+    newObject = checkCorrectnessOfObject(newObject)
+
+    if(newObject){
+        storage.push(newObject)
+        update()
+
+    }
+    else{
+
+    }
+
+}
+
+function showAddingError(){
+    console.log("TODO niepoprawne dane w obiekcie dodawanym")
+}
+
+function checkCorrectnessOfObject(object){
+    if(object.name.length==0 ) return false
+    
+    if(object.price.length==0) return false
+    object.price = parseFloat(object.price)
+    if(object.price<=0) return false
+    if(checkPrecision(object.price)==false) return false
+
+    if(object.amount.length == 0) return false;
+    object.amount=parseFloat(object.amount)
+    if(object.amount <=0) return false
+
+
+    return object
+}
+
+function checkPrecision(float){
+    return ((Math.round(float*100)/100)==float)
+}
+
 window.onload = function (){
+    addButtonInit()
     update()
 }

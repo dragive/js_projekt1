@@ -42,3 +42,8 @@ td{
     text-align: left;
     font-weight: bold;
 }
+
+.table-add-text{
+    width:120px;
+    min-width: 0px;
+}
