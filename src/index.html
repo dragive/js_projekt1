@@ -28,10 +28,14 @@
                     <input class="table-add-text" id="text-add-amount">
                 </td>
                 <td>
-                    <p id="text-add-cost"></p> 
+                    <p id="text-add-cost" hidden>Wprowadzono niepoprawne dane! Popraw i zatwierdź ponownie</p> 
                 </td>
                 <td>
-                    <input type = "button" value="Dodaj" id="text-submit">
+                    <span>
+                        <input type = "button" style="margin-right: 10px;" value="Dodaj" id="text-submit">
+                        <input type = "button" style="margin-right: 10px;" value="Aktualizuj" id="text-update" hidden>
+                        <input type = "button" style="margin-right: 10px;"  value="Anuluj" id="text-update-cancel" hidden>
+                    </span>
                 </td>
             </tr>
             <tr id="table-footer">

@@ -2,24 +2,24 @@ var currencySuffix = " zł"
 
 var storage = [{
     lp:10,
-    name:"nazwa",
+    name:"nazwa4",
     price:123,
-    amount:10
+    amount:103
 },{
     lp:20,
-    name:"nazwa",
-    price:123,
-    amount:10
+    name:"nazwa3",
+    price:23,
+    amount:102
 },{
     lp:20,
-    name:"nazwa",
-    price:123,
-    amount:10
+    name:"nazwa2",
+    price:13,
+    amount:1011
 },{
     lp:20,
-    name:"nazwa",
-    price:123,
-    amount:10
+    name:"nazwa1",
+    price:1,
+    amount:101
 }]
 
 function update(){
@@ -92,30 +92,106 @@ function generateNewRowByObject(element){
     tr.appendChild(tdAmount)
     tr.appendChild(tdCost)
     tr.appendChild(tdControlls)
+
+    tr.onclick = (event) => {
+        let up = "Up"
+        let down = "Down"
+        let edit = "Edytuj"
+        let del = "Usuń"
+
+        let index = parseInt(tr.children[0].innerHTML) 
+        if(event.target.value==up){
+            console.log("UP"+index)
+            if(index == 1) return
+            swapElementsByIndexes(index-1,index-2)
+            console.log("swaped"+index-1+""+index-2)
+            pushStorageToLocalStorage()
+            update()
+        }
+        else if(event.target.value==down){
+            console.log("DOWN"+index)
+            if(index == storage.length) return
+            swapElementsByIndexes(index-1,index)
+            console.log("swaped"+index-1+""+index)
+            pushStorageToLocalStorage()
+            update()
+        }
+        else if(event.target.value==edit){
+            console.log("EDIT"+index)
+            let element = storage[index-1]
+            storage.splice(index-1,1)
+            update()
+
+            document.getElementById("text-add-name").value = element.name
+            document.getElementById("text-add-price").value = element.price
+            document.getElementById("text-add-amount").value = element.amount
+            
+            document.getElementById("text-submit").hidden = true
+            document.getElementById("text-update-cancel").hidden = false
+            document.getElementById("text-update").hidden =false
+
+
+            document.getElementById("text-update-cancel").onclick =  function (){cancelButtonOnClickListener(element)}
+            document.getElementById("text-update").onclick =updateButtonOnClickListener
+
+        }
+        else if(event.target.value==del){
+            console.log("DEL"+index)
+            storage.splice(index-1,1)
+            pushStorageToLocalStorage()
+            update()
+        }
+      }
+
+}
+
+function updateButtonOnClickListener(){
+    addButtonOnCLickListener()
+}
+function cancelButtonOnClickListener(element){
+    document.getElementById("text-submit").hidden = false
+    document.getElementById("text-update-cancel").hidden = true
+    document.getElementById("text-update").hidden =true
+
+    storage.push(element)
+    update()
+    console.log(element)
+    clearAddForm()
+}
+
+function swapElementsByIndexes(indexA,indexB){
+    let temp = storage[indexA]
+    storage[indexA] = storage[indexB]
+    storage[indexB] = temp
 }
 
 function getControllsDiv(){
+    let up = "Up"
+    let down = "Down"
+    let edit = "Edytuj"
+    let del = "Usuń" //WARN: redeklaracja wyżej - muszą się zgadzać
+
     let span = document.createElement("span")
     let buttonEdit = document.createElement("input")
     buttonEdit.type= "button"
-    buttonEdit.value="Edytuj"
+    buttonEdit.value=edit
     span.appendChild(buttonEdit)
 
     let buttonDelete = document.createElement("input")
     buttonDelete.type= "button"
-    buttonDelete.value="Usuń"
+    buttonDelete.value=del
     buttonDelete.style.marginLeft="10px"
     span.appendChild(buttonDelete)
 
     let buttonUp = document.createElement("input")
     buttonUp.type= "button"
-    buttonUp.value="Up"
+    buttonUp.value=up
     buttonUp.style.marginLeft="10px"
     span.appendChild(buttonUp)
 
     let buttonDown = document.createElement("input")
     buttonDown.type= "button"
-    buttonDown.value="Down"
+    buttonDown.value=down
     buttonDown.style.marginLeft="10px"
     span.appendChild(buttonDown)
 
@@ -163,6 +239,7 @@ function addButtonOnCLickListener(){
         storage.push(newObject)
         pushStorageToLocalStorage()
         update()
+        clearAddForm()
 
     }
     else{
@@ -172,11 +249,11 @@ function addButtonOnCLickListener(){
 }
 
 function showAddingError(){
-    console.log("TODO niepoprawne dane w obiekcie dodawanym")
+    alert("Wprowadzono niepoprawne dane do paragonu! Sprawdź czy dane są wprowadzone w poprawnym formacie, nie są ujemne lub równe 0.");
 }
 
 function hideAddingError(){
-    console.log("TODO niepoprawne dane w obiekcie dodawanym")
+    ;
 }
 
 function checkCorrectnessOfObject(object){
@@ -204,7 +281,13 @@ function pullStorageFromLocalStorage(){
 }
 
 function pushStorageToLocalStorage(){
-    storage = JSON.parse(localStorage["storage"] || "[]")
+    localStorage["storage"] = JSON.stringify(storage)
+}
+
+function clearAddForm(){
+    document.getElementById("text-add-name").value = ""
+    document.getElementById("text-add-price").value = ""
+    document.getElementById("text-add-amount").value = ""
 }
 
 window.onload = function (){
