@@ -40,6 +40,7 @@ function setContentSumaTextView(content){
 
 function sumElementsOnList(){
     let sum = 0
+    if(storage.length == 0) return 0.0
     sum = storage.map(element=>element.price*element.amount).reduce((a,b)=>{return a+b})
     return sum
 }
@@ -158,17 +159,23 @@ function addButtonOnCLickListener(){
     newObject = checkCorrectnessOfObject(newObject)
 
     if(newObject){
+        hideAddingError()
         storage.push(newObject)
+        pushStorageToLocalStorage()
         update()
 
     }
     else{
-
+        showAddingError()
     }
 
 }
 
 function showAddingError(){
+    console.log("TODO niepoprawne dane w obiekcie dodawanym")
+}
+
+function hideAddingError(){
     console.log("TODO niepoprawne dane w obiekcie dodawanym")
 }
 
@@ -192,7 +199,16 @@ function checkPrecision(float){
     return ((Math.round(float*100)/100)==float)
 }
 
+function pullStorageFromLocalStorage(){
+    storage = JSON.parse(localStorage["storage"] || "[]")
+}
+
+function pushStorageToLocalStorage(){
+    storage = JSON.parse(localStorage["storage"] || "[]")
+}
+
 window.onload = function (){
     addButtonInit()
+    pullStorageFromLocalStorage()
     update()
 }
