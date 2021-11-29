@@ -146,6 +146,9 @@ function generateNewRowByObject(element){
 }
 
 function updateButtonOnClickListener(){
+    document.getElementById("text-submit").hidden = false
+    document.getElementById("text-update-cancel").hidden = true
+    document.getElementById("text-update").hidden =true
     addButtonOnCLickListener()
 }
 function cancelButtonOnClickListener(element){
