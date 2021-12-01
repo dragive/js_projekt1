@@ -94,8 +94,8 @@ function generateNewRowByObject(element){
     tr.appendChild(tdControlls)
 
     tr.onclick = (event) => {
-        let up = "🡱"
-        let down = "🡳"
+        let up = "▲"
+        let down = "▼"
         let edit = "Edytuj"
         let del = "Usuń"
 
@@ -169,8 +169,8 @@ function swapElementsByIndexes(indexA,indexB){
 }
 
 function getControllsDiv(){
-    let up = "🡱"
-    let down = "🡳"
+    let up = "▲"
+    let down = "▼"
     let edit = "Edytuj"
     let del = "Usuń" //WARN: redeklaracja wyżej - muszą się zgadzać
 
