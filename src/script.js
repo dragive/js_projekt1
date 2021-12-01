@@ -94,14 +94,14 @@ function generateNewRowByObject(element){
     tr.appendChild(tdControlls)
 
     tr.onclick = (event) => {
-        let up = "Up"
-        let down = "Down"
+        let up = "🡱"
+        let down = "🡳"
         let edit = "Edytuj"
         let del = "Usuń"
 
         let index = parseInt(tr.children[0].innerHTML) 
         if(event.target.value==up){
-            console.log("UP"+index)
+            console.log("🡱"+index)
             if(index == 1) return
             swapElementsByIndexes(index-1,index-2)
             console.log("swaped"+index-1+""+index-2)
@@ -109,7 +109,7 @@ function generateNewRowByObject(element){
             update()
         }
         else if(event.target.value==down){
-            console.log("DOWN"+index)
+            console.log("🡳"+index)
             if(index == storage.length) return
             swapElementsByIndexes(index-1,index)
             console.log("swaped"+index-1+""+index)
@@ -169,8 +169,8 @@ function swapElementsByIndexes(indexA,indexB){
 }
 
 function getControllsDiv(){
-    let up = "Up"
-    let down = "Down"
+    let up = "🡱"
+    let down = "🡳"
     let edit = "Edytuj"
     let del = "Usuń" //WARN: redeklaracja wyżej - muszą się zgadzać
 
