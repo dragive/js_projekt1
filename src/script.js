@@ -247,12 +247,19 @@ function addButtonOnCLickListener(){
     }
     else{
         showAddingError()
+
+    document.getElementById("text-submit").hidden = true
+    document.getElementById("text-update-cancel").hidden = false
+    document.getElementById("text-update").hidden =false
     }
 
 }
 
 function showAddingError(){
     alert("Wprowadzono niepoprawne dane do paragonu! Sprawdź czy dane są wprowadzone w poprawnym formacie, nie są ujemne lub równe 0.");
+
+
+
 }
 
 function hideAddingError(){
