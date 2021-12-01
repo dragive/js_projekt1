@@ -22,6 +22,8 @@ var storage = [{
     amount:101
 }]
 
+var editElement=0;
+
 function update(){
     clearList()
     reenumerateStorage()
@@ -109,7 +111,7 @@ function generateNewRowByObject(element){
             update()
         }
         else if(event.target.value==down){
-            console.log("🡳"+index)
+            console.log(""+index)
             if(index == storage.length) return
             swapElementsByIndexes(index-1,index)
             console.log("swaped"+index-1+""+index)
@@ -119,6 +121,10 @@ function generateNewRowByObject(element){
         else if(event.target.value==edit){
             console.log("EDIT"+index)
             let element = storage[index-1]
+            if(!(editElement===0))
+                storage.splice(editElement.lp-1,0,editElement)
+            editElement = element
+            
             storage.splice(index-1,1)
             update()
 
@@ -146,12 +152,16 @@ function generateNewRowByObject(element){
 }
 
 function updateButtonOnClickListener(){
+    editElement = 0
     document.getElementById("text-submit").hidden = false
     document.getElementById("text-update-cancel").hidden = true
     document.getElementById("text-update").hidden =true
     addButtonOnCLickListener()
+    
 }
 function cancelButtonOnClickListener(element){
+
+    editElement = 0
     document.getElementById("text-submit").hidden = false
     document.getElementById("text-update-cancel").hidden = true
     document.getElementById("text-update").hidden =true
@@ -160,6 +170,7 @@ function cancelButtonOnClickListener(element){
     update()
     console.log(element)
     clearAddForm()
+
 }
 
 function swapElementsByIndexes(indexA,indexB){
